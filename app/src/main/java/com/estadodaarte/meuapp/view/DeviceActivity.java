@@ -30,6 +30,8 @@ public class DeviceActivity extends AppCompatActivity {
         dados.add(getResources().getString(R.string.manufacturer) + ": " + device.getDeviceBrand());
         dados.add(getResources().getString(R.string.model) + ": " + device.getDeviceModel());
         dados.add(getResources().getString(R.string.country) + ": " + device.getNetworkCountryIso());
+        dados.add(getResources().getString(R.string.sim_operator) + ": " + device.getSimOperatorName());
+        dados.add(getResources().getString(R.string.sim_serial) + ": " + device.getSimSerialNumber());
         dados.add(getResources().getString(R.string.operating_system) + ": " + device.getOsName());
         dados.add(getResources().getString(R.string.version) + ": " + device.getDeviceAndroidRelease());
         dados.add(getResources().getString(R.string.device_imei) + ": " + device.getImei());

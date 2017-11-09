@@ -10,6 +10,11 @@ public class Device extends BaseClass {
     private Context context;
     private TelephonyManager telephonyManager;
 
+    public final String PHONE_TYPE_NONE = "NONE";
+    public final String PHONE_TYPE_GSM  = "GSM";
+    public final String PHONE_TYPE_CDMA = "CDMA";
+    public final String PHONE_TYPE_SIP  = "SIP";
+
     public Device(Context context) {
         super();
         this.context     = context;
@@ -36,7 +41,7 @@ public class Device extends BaseClass {
             } else {
                 return result;
             }
-        } catch(Exception e) {
+        } catch(SecurityException e) {
             return "";
         }
     }
@@ -163,15 +168,15 @@ public class Device extends BaseClass {
      */
     public String getPhoneTypeName () {
         if(this.telephonyManager.getPhoneType() == this.telephonyManager.PHONE_TYPE_NONE) {
-            return "NONE";
+            return this.PHONE_TYPE_NONE;
         } else if(this.telephonyManager.getPhoneType() == this.telephonyManager.PHONE_TYPE_GSM) {
-            return "GSM";
+            return this.PHONE_TYPE_GSM;
         } else if(this.telephonyManager.getPhoneType() == this.telephonyManager.PHONE_TYPE_CDMA) {
-            return "CDMA";
+            return this.PHONE_TYPE_CDMA;
         } else if(this.telephonyManager.getPhoneType() == this.telephonyManager.PHONE_TYPE_SIP) {
-            return "SIP";
+            return this.PHONE_TYPE_SIP;
         } else {
-            return "NONE";
+            return this.PHONE_TYPE_NONE;
         }
     }
 
@@ -252,6 +257,46 @@ public class Device extends BaseClass {
             return "DEVELOPMENT";
         } else {
             return "UNKNOWN";
+        }
+    }
+
+    public String getSimOperator() {
+        String result = null;
+        if (this.telephonyManager.getSimState() == this.telephonyManager.SIM_STATE_READY) {
+            result = this.telephonyManager.getSimOperator();
+        }
+        if (result == null) {
+            return "";
+        } else {
+            return result;
+        }
+    }
+
+    public String getSimOperatorName() {
+        String result = null;
+        if (this.telephonyManager.getSimState() == this.telephonyManager.SIM_STATE_READY) {
+            result = this.telephonyManager.getSimOperatorName();
+        }
+        if (result == null) {
+            return "";
+        } else {
+            return result;
+        }
+    }
+
+    public String getSimSerialNumber() {
+        String result = null;
+        try {
+            if ( this.context.checkPermission(READ_PHONE_STATE, android.os.Process.myPid(), android.os.Process.myUid()) == android.content.pm.PackageManager.PERMISSION_GRANTED ) {
+                result = this.telephonyManager.getSimSerialNumber();
+            }
+            if (result == null) {
+                return "";
+            } else {
+                return result;
+            }
+        } catch(SecurityException e) {
+            return "";
         }
     }
 

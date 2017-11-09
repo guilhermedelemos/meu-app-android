@@ -16,4 +16,6 @@
     <string name="country">País</string>
     <string name="operating_system">Sistema Operacional</string>
     <string name="version">Versão</string>
+    <string name="sim_operator">Operadora</string>
+    <string name="sim_serial">Serial SIM</string>
 </resources>
