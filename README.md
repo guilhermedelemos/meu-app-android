@@ -1,8 +1,7 @@
 # meu-app-android
 Meu App Android
 
-# Discord
-https://discord.gg/P9wjrnU
+[![Build Status](https://travis-ci.org/guilhermedelemos/meu-app-android.svg?branch=master)](https://travis-ci.org/guilhermedelemos/meu-app-android)
 
 # Política de Privacidade (Versão 1.0.0 - 08/11/2017)
 
