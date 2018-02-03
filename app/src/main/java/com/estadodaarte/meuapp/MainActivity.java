@@ -1,9 +1,11 @@
 package com.estadodaarte.meuapp;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -19,10 +21,15 @@ import com.estadodaarte.meuapp.view.DeviceActivity;
 import com.estadodaarte.octopet.BaseController;
 import com.estadodaarte.octopet.Device;
 
+import static android.Manifest.permission.READ_PHONE_STATE;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private BaseController controller;
+
+    public static final int MY_PERMISSIONS_READ_PHONE_STATE = 99;
+    private int permissions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +48,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         this.controller = new MainController();
+        this.permissions = 0;
     }
 
     @Override
@@ -98,6 +106,25 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        checkAndroidPermissions();
+    }
+
+    private void checkAndroidPermissions() {
+        if(this.permissions > 0) {
+            return;
+        }
+        this.permissions++;
+        if ( checkPermission(READ_PHONE_STATE, android.os.Process.myPid(), android.os.Process.myUid()) != android.content.pm.PackageManager.PERMISSION_GRANTED ) {
+            if(android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                ActivityCompat.requestPermissions(this, new String[] {READ_PHONE_STATE}, MY_PERMISSIONS_READ_PHONE_STATE);
+            }
+        }
     }
 
 }

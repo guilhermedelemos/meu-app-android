@@ -21,4 +21,5 @@
     <string name="app_email" translatable="false">contato@estadodaarte.com</string>
     <string name="sim_operator">Operator</string>
     <string name="sim_serial">SIM Serial</string>
+    <string name="android_permission_denied">Permission Denied</string>
 </resources>
